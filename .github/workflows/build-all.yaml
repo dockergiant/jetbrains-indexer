@@ -1,6 +1,13 @@
 name: run workflows for all IDEs
 
 on:
+  workflow_dispatch:
+    inputs:
+      IDE_VERSION:
+        description: "IDE Version to build"
+        required: false
+        type: string
+        default: "2021.3"
   push:
     branches:
       - master
@@ -14,6 +21,7 @@ jobs:
       IDE: ideaIU
       IDE_SHORT: idea
       IDE_CODE: idea
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -23,6 +31,7 @@ jobs:
       IDE: WebStorm
       IDE_SHORT: webstorm
       IDE_CODE: webstorm
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -32,6 +41,7 @@ jobs:
       IDE: goland
       IDE_SHORT: goland
       IDE_CODE: go
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -41,6 +51,7 @@ jobs:
       IDE: pycharm-professional
       IDE_SHORT: pycharm
       IDE_CODE: python
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -50,6 +61,7 @@ jobs:
       IDE: PhpStorm
       IDE_SHORT: phpstorm
       IDE_CODE: webide
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -59,6 +71,7 @@ jobs:
       IDE: CLion
       IDE_SHORT: clion
       IDE_CODE: cpp
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -68,6 +81,7 @@ jobs:
       IDE: RubyMine
       IDE_SHORT: rubymine
       IDE_CODE: ruby
+      IDE_VERSION: ${{ inputs.IDE_VERSION }}
     secrets:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
