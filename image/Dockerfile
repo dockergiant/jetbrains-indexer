@@ -1,5 +1,7 @@
 FROM openkbs/jdk-mvn-py3
 
+MAINTAINER Rick "rick@dockergiant.com"
+
 # Shared indexing works best
 # when you use the IDE
 # corresponding to the language
