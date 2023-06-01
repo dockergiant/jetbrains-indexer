@@ -15,7 +15,7 @@ Shared indexes are often hosted on a CDN and used by IDEs to speed up loading (i
         -v "$(pwd)":/var/project \
         -v "$HOME/indexes-out":/shared-index \
         -e INDEXES_CDN_URL=http://localhost:3000/project \
-        rollupdev/indexer:idea-2021.3
+        rollupdev/indexer:idea-2023.1
         
     # you may need to fix the file permissions for the generated indexes
     sudo chown -R $(id -u):$(id -g) $HOME/indexes-out
@@ -43,7 +43,7 @@ Shared indexes are often hosted on a CDN and used by IDEs to speed up loading (i
 
 ## IDE support
 
-By default, this project indexes version 2021.3 of your IDE. Specify the IDE name by using the appropriate tag (e.g `rollupdev/indexer:[ide-name]-2021.3`). You can verify with [DockerHub](https://hub.docker.com/r/rollupdev/indexer/tags).
+By default, this project indexes version 2023.1 of your IDE. Specify the IDE name by using the appropriate tag (e.g `rollupdev/indexer:[ide-name]-2023.1`). You can verify with [DockerHub](https://hub.docker.com/r/rollupdev/indexer/tags).
 
 If an IDE/version is not on DockerHub, we recommend you manually pulling and building the image yourself using [these build arguments](https://github.com/dockergiant/jetbrains-indexer/blob/master/image/Dockerfile#L3-L9).
 

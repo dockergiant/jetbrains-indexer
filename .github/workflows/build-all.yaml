@@ -7,7 +7,7 @@ on:
         description: "IDE Version to build"
         required: false
         type: string
-        default: "2021.3"
+        default: "2023.1"
   push:
     branches:
       - master

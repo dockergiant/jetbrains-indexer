@@ -7,7 +7,7 @@ can use to troubleshoot this.
 
 While shared indexes are generated with cross-platform support, they are not compatible with all versions of the IDE. (1)[^1]
 
-By default, the Docker image will generate indexes for the `2021.3` version of IntelliJ IDEs.
+By default, the Docker image will generate indexes for the `2023.1` version of IntelliJ IDEs.
 If you are using a different version, you will need to update the build-time variable
 [IDE_VERSION](https://github.com/dockergiant/jetbrains-indexer/blob/master/image/Dockerfile#L9) and
 rebuild the container.
