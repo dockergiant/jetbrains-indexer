@@ -1,4 +1,4 @@
-FROM openkbs/jdk-mvn-py3
+FROM rollupdev/jdk-mvn-py3
 
 MAINTAINER Rick "rick@dockergiant.com"
 
