@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: ./image
-          platforms: linux/amd64
+          platforms: linux/amd64,linux/arm64
           build-args: |
             IDE=${{ inputs.IDE }}
             IDE_SHORT=${{ inputs.IDE_SHORT }}
