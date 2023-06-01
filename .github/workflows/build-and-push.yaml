@@ -1,8 +1,5 @@
 name: build & push
 
-env:
-  IDE_VERSION: "2023.1"
-
 on:
   workflow_call:
     inputs:
@@ -37,14 +34,6 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.token }}
 
-      - name: Set build-args
-        run: |-
-          IDE_INPUT_VERSION="$(echo ${{ input.IDE_VERSION }}"
-          if [ "${IDE_INPUT_VERSION}" != '' ]; then
-            echo "IDE_VERSION=${IDE_INPUT_VERSION}" | tee /dev/stderr >> $GITHUB_ENV;
-          else
-            echo "IDE_VERSION=${IDE_VERSION}" | tee /dev/stderr >> $GITHUB_ENV;
-          fi
       - name: Build & Push
         uses: docker/build-push-action@v4
         with:

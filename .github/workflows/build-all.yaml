@@ -5,15 +5,9 @@ on:
     inputs:
       IDE_VERSION:
         description: "IDE Version to build"
-        required: false
+        required: true
         type: string
         default: "2023.1"
-  push:
-    branches:
-      - master
-    paths:
-      - "image/**" # run the action when: the image has been modified
-      - ".github/workflows/**" # run the action when: the workflow has been modified
 jobs:
   build-intellij:
     uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
