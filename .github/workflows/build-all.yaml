@@ -1,5 +1,8 @@
 name: run workflows for all IDEs
 
+env:
+  IDE_VERSION: "2023.1"
+
 on:
   workflow_dispatch:
     inputs:
