@@ -45,7 +45,7 @@ jobs:
             IDE_CODE=${{ inputs.IDE_CODE }}
             IDE_VERSION=${{ inputs.IDE_VERSION }}
           tags: |
-            bencdr/indexer:${{ inputs.IDE_SHORT }}-${{ inputs.IDE_VERSION }}
+            rollupdev/indexer:${{ inputs.IDE_SHORT }}-${{ inputs.IDE_VERSION }}
           push: true
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

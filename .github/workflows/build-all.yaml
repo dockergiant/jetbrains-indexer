@@ -9,7 +9,7 @@ on:
       - ".github/workflows/**" # run the action when: the workflow has been modified
 jobs:
   build-intellij:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: ideaIU
       IDE_SHORT: idea
@@ -18,7 +18,7 @@ jobs:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
   build-webstorm:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: WebStorm
       IDE_SHORT: webstorm
@@ -27,7 +27,7 @@ jobs:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
   build-goland:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: goland
       IDE_SHORT: goland
@@ -36,7 +36,7 @@ jobs:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
   build-pycharm:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: pycharm-professional
       IDE_SHORT: pycharm
@@ -45,7 +45,7 @@ jobs:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
   build-phpstorm:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: PhpStorm
       IDE_SHORT: phpstorm
@@ -54,7 +54,7 @@ jobs:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
   build-clion:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: CLion
       IDE_SHORT: clion
@@ -63,7 +63,7 @@ jobs:
       username: ${{ secrets.DOCKERHUB_USERNAME }}
       token: ${{ secrets.DOCKERHUB_TOKEN }}
   build-rubymine:
-    uses: bpmct/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
+    uses: dockergiant/jetbrains-indexer/.github/workflows/build-and-push.yaml@master
     with:
       IDE: RubyMine
       IDE_SHORT: rubymine
