@@ -17,7 +17,7 @@ ENV GROUP_ID=${GROUP_ID:-1000}
 ENV JAVA_VERSION=19
 
 ENV LANG C.UTF-8
-ARG LIB_BASIC_LIST="curl wget unzip ca-certificates"
+ARG LIB_BASIC_LIST="curl wget unzip ca-certificates sh"
 RUN set -eux; \
     apt-get update -y && \
     apt-get install -y ${LIB_BASIC_LIST}
