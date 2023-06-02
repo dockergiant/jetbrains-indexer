@@ -102,7 +102,7 @@ RUN export MAVEN_PACKAGE_URL=$(curl -s https://maven.apache.org/download.cgi | g
     export MAVEN_HOME=/usr/apache-maven-${MAVEN_VERSION} && \
     export PATH=${PATH}:${MAVEN_HOME}/bin && \
     curl -k -sL ${MAVEN_PACKAGE_URL} | gunzip | tar x -C /usr/ && \
-    ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn && \ \
+    ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn && \
     rm -f ${MAVEN_PACKAGE}
 
 RUN python3 -m pip install --upgrade pip
