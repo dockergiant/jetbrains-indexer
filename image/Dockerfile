@@ -205,7 +205,7 @@ WORKDIR /opt
 RUN mkdir -p /etc/idea && \
     mkdir -p /etc/idea/config && \
     mkdir -p /etc/idea/log && \
-    mkdir -p /etc/idea/3plugins && \
+    mkdir -p /etc/idea/plugins && \
     mkdir -p /etc/idea/system && \
     mkdir ${SHARED_INDEX_BASE} && \
     mkdir ${SHARED_INDEX_BASE}/output && \
