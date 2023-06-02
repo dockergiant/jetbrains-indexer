@@ -6,8 +6,6 @@ MAINTAINER Rick "rick@dockergiant.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG TARGETARCH="arm64"
-
 #### ---------------------
 #### ---- USER, GROUP ----
 #### ---------------------
