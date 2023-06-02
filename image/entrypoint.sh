@@ -27,16 +27,20 @@ fi
 # Format for CDN (cdn-layout-tool)
 if [ "$SKIP_FORMAT" = "false" ]; then
     echo_format "Formatting indexes"
+
+    mkdir -p ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
+    mv ${SHARED_INDEX_BASE}/output/* ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
+    rmdir ${SHARED_INDEX_BASE}/output && \
     /opt/cdn-layout-tool/bin/cdn-layout-tool \
         --indexes-dir=${SHARED_INDEX_BASE} \
-        --url=${INDEXES_CDN_URL} && \
-        mv ${SHARED_INDEX_BASE}/output ${SHARED_INDEX_BASE}/project/output
+        --url=${INDEXES_CDN_URL}
+
 fi
 
 # Generate config file for project (your-project/intellij.yaml)
 if [ "$SKIP_CONFIG_FILE" = "false" ]; then
     echo_format "Creating intellij.yaml file"
-    config_yaml="sharedIndex:\n  project:\n    - url: $INDEXES_CDN_URL\n"
+    config_yaml="sharedIndex:\n  project:\n    - url: $INDEXES_CDN_URL/project/$PROJECT_ID\n"
 
     # Check if intellij.yaml already exists in project, if not create one
     if [ -f "$IDEA_PROJECT_DIR/intellij.yaml" ]; then
