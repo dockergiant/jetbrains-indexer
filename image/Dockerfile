@@ -96,10 +96,14 @@ ENV MAVEN_PACKAGE=apache-maven-${MAVEN_VERSION}-bin.tar.gz
 ENV PATH=${PATH}:${MAVEN_HOME}/bin
 ## -- Auto tracking (by parsing product release page) the latest release -- ##
 # https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz
-RUN curl -k -sL "https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz" | gunzip | tar x -C /usr/
-RUN ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn
-RUN ${MAVEN_HOME}/bin/mvn -v
-RUN rm -f ${MAVEN_PACKAGE}
+RUN export MAVEN_PACKAGE_URL=$(curl -s https://maven.apache.org/download.cgi | grep -e "apache-maven.*bin.tar.gz" | head -1|cut -d'"' -f2) && \
+    export MAVEN_PACKAGE=$(basename $MAVEN_PACKAGE_URL) && \
+    export MAVEN_VERSION=$(echo ${MAVEN_PACKAGE}|cut -d'-' -f3) && \
+    export MAVEN_HOME=/usr/apache-maven-${MAVEN_VERSION} && \
+    export PATH=${PATH}:${MAVEN_HOME}/bin && \
+    curl -k -sL ${MAVEN_PACKAGE_URL} | gunzip | tar x -C /usr/ && \
+    ln -s ${MAVEN_HOME}/bin/mvn /usr/bin/mvn && \ \
+    rm -f ${MAVEN_PACKAGE}
 
 RUN python3 -m pip install --upgrade pip
 
@@ -207,8 +211,6 @@ RUN mkdir -p /etc/idea && \
     mkdir ${SHARED_INDEX_BASE}/output && \
     mkdir ${SHARED_INDEX_BASE}/temp
 
-COPY plugins/* /etc/idea/3plugins
-
 # Install IntelliJ IDEA Ultimate
 # arm64 package url : https://download.jetbrains.com/webide/PhpStorm-2023.1.2-aarch64.tar.gz
 RUN if [ "${TARGETARCH}" = "arm64" ]; then IDE_TAR="${IDE}-${IDE_VERSION}-aarch64.tar.gz"; fi && \
@@ -218,7 +220,7 @@ RUN if [ "${TARGETARCH}" = "arm64" ]; then IDE_TAR="${IDE}-${IDE_VERSION}-aarch6
     rm ${IDE_TAR} && \
     echo idea.config.path=/etc/idea/config >> /opt/idea/bin/idea.properties && \
     echo idea.log.path=/etc/idea/log >> /opt/idea/bin/idea.properties && \
-    echo idea.plugins.path=/etc/idea/3plugins >> /opt/idea/bin/idea.properties && \
+    echo idea.plugins.path=/etc/idea/plugins >> /opt/idea/bin/idea.properties && \
     echo idea.system.path=/etc/idea/system >> /opt/idea/bin/idea.properties && \
     chmod -R 777 /opt/idea && \
     chmod -R 777 ${SHARED_INDEX_BASE} && \
