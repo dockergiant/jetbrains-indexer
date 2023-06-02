@@ -6,7 +6,7 @@ MAINTAINER Rick "rick@dockergiant.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-ARG TARGETARCH="arm64"
+ARG TARGETARCH
 
 #### ---------------------
 #### ---- USER, GROUP ----
@@ -17,7 +17,7 @@ ENV GROUP_ID=${GROUP_ID:-1000}
 ENV JAVA_VERSION=19
 
 ENV LANG C.UTF-8
-ARG LIB_BASIC_LIST="curl wget unzip ca-certificates sh"
+ARG LIB_BASIC_LIST="curl wget unzip ca-certificates"
 RUN set -eux; \
     apt-get update -y && \
     apt-get install -y ${LIB_BASIC_LIST}
@@ -96,7 +96,7 @@ ENV MAVEN_PACKAGE=apache-maven-${MAVEN_VERSION}-bin.tar.gz
 ENV PATH=${PATH}:${MAVEN_HOME}/bin
 ## -- Auto tracking (by parsing product release page) the latest release -- ##
 # https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz
-RUN export MAVEN_PACKAGE_URL=$(curl -s https://maven.apache.org/download.cgi | grep -e "apache-maven.*bin.tar.gz" | head -1|cut -d'"' -f2) && \
+RUN export MAVEN_PACKAGE_URL=$(curl -s https://maven.apache.org/download.cgi | grep -e "apache-maven.*bin.tar.gz" | head -1 | cut -d'"' -f2) && \
     export MAVEN_PACKAGE=$(basename $MAVEN_PACKAGE_URL) && \
     export MAVEN_VERSION=$(echo ${MAVEN_PACKAGE}|cut -d'-' -f3) && \
     export MAVEN_HOME=/usr/apache-maven-${MAVEN_VERSION} && \
