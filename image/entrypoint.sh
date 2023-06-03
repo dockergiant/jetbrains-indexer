@@ -30,6 +30,8 @@ if [ "$SKIP_GENERATE" = "false" ]; then
         --tmp=${SHARED_INDEX_BASE}/temp \
         --output=${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes
 
+fi
+
 # Format for CDN (cdn-layout-tool)
 if [ "$SKIP_FORMAT" = "false" ]; then
     echo_format "Formatting indexes"
