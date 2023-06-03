@@ -12,25 +12,33 @@ echo_format() {
     echo "============================================================"
 }
 
+#adding /var/project to safe directory of git
+if [ -d "${IDEA_PROJECT_DIR}/.git" ]; then
+  git config --global --add safe.directory ${IDEA_PROJECT_DIR}
+fi
+
 # Generate indexes (dump-shared-index)
 if [ "$SKIP_GENERATE" = "false" ]; then
     echo_format "Generating indexes"
+
+    mkdir -p ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes
 
     /opt/idea/bin/${IDE_SHORT}.sh dump-shared-index project \
         --project-dir=${IDEA_PROJECT_DIR} \
         --project-id=${PROJECT_ID} \
         --commit-id=${COMMIT_ID} \
         --tmp=${SHARED_INDEX_BASE}/temp \
-        --output=${SHARED_INDEX_BASE}/output
+        --output=${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes
+#
+#    mkdir -p ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
+#        mv ${SHARED_INDEX_BASE}/output/* ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
+#        rmdir ${SHARED_INDEX_BASE}/output
 fi
 
 # Format for CDN (cdn-layout-tool)
 if [ "$SKIP_FORMAT" = "false" ]; then
     echo_format "Formatting indexes"
 
-    mkdir -p ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
-    mv ${SHARED_INDEX_BASE}/output/* ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
-    rmdir ${SHARED_INDEX_BASE}/output && \
     /opt/cdn-layout-tool/bin/cdn-layout-tool \
         --indexes-dir=${SHARED_INDEX_BASE} \
         --url=${INDEXES_CDN_URL}

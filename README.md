@@ -18,9 +18,6 @@ Shared indexes are often hosted on a CDN and used by IDEs to speed up loading (i
         -e PROJECT_ID=%yourprojectid% \
         -u "$(id -u):$(id -g)" \
         rollupdev/indexer:phpstorm-2023.1
-        
-    # you may need to fix the file permissions for the generated indexes
-    sudo chown -R $(id -u):$(id -g) $HOME/indexes-out
     ```
 
 1.  Upload indexes to CDN (or test locally)
