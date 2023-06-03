@@ -29,11 +29,6 @@ if [ "$SKIP_GENERATE" = "false" ]; then
         --commit-id=${COMMIT_ID} \
         --tmp=${SHARED_INDEX_BASE}/temp \
         --output=${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes
-#
-#    mkdir -p ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
-#        mv ${SHARED_INDEX_BASE}/output/* ${SHARED_INDEX_BASE}/project/${PROJECT_ID}/indexes && \
-#        rmdir ${SHARED_INDEX_BASE}/output
-fi
 
 # Format for CDN (cdn-layout-tool)
 if [ "$SKIP_FORMAT" = "false" ]; then
