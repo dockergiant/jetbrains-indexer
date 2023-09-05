@@ -11,13 +11,11 @@ Shared indexes are often hosted on a CDN and used by IDEs to speed up loading (i
     ```sh
     cd your-project/
 
-    docker run -it --rm \
-        -v "$(pwd)":/var/project \
-        -v "$HOME/indexes-out":/shared-index \
-        -e INDEXES_CDN_URL=http://localhost:3000 \
-        -e PROJECT_ID=%yourprojectid% \
-        -u "$(id -u):$(id -g)" \
-        rollupdev/indexer:phpstorm-2023.1
+    docker run --rm \
+    -v "$(pwd)":/var/project/%yourprojectname% \
+    -v "$HOME/indexes-out":/shared-index \
+    -e PROJECT_NAME=%yourprojectname% \
+    -e INDEXES_CDN_URL=http://localhost:3000
     ```
 
 1.  Upload indexes to CDN (or test locally)
@@ -35,7 +33,10 @@ Shared indexes are often hosted on a CDN and used by IDEs to speed up loading (i
     ```yaml
     sharedIndex:
       project:
-        - url: http://localhost:3000/project/%yourprojectid%
+        - url: http://localhost:3000/project/%yourprojectname%
+      consents:
+        - kind: project
+          decision: allowed
     ```
 
 1.  Open your IDE and test (use `File → Invalidate Caches` to load indexes for the first time again)
