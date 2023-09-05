@@ -232,6 +232,11 @@ RUN wget https://packages.jetbrains.team/maven/p/ij/intellij-shared-indexes/com/
     rm ij-shared-indexes-tool-cli.zip && \
     mv ij-shared-indexes-tool-cli-${SHARED_INDEX_CLI_TOOL_VERSION} ij-shared-indexes-tool-cli
 
+###################################
+#### ---- Clean not used files ---- ####
+###################################
+RUN apt-get clean -y && \
+        rm -rf /var/lib/apt/lists/*
 
 COPY entrypoint.sh entrypoint.sh
 CMD ./entrypoint.sh
