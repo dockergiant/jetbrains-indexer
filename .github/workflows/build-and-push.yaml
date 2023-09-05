@@ -46,6 +46,7 @@ jobs:
             IDE_VERSION=${{ inputs.IDE_VERSION }}
           tags: |
             rollupdev/indexer:${{ inputs.IDE_SHORT }}-${{ inputs.IDE_VERSION }}
+            rollupdev/indexer:${{ inputs.IDE_SHORT }}
           push: true
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

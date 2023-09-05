@@ -149,14 +149,16 @@ RUN mkdir -p ${GRADLE_INSTALL_BASE} && \
 #########################################
 # Ref: https://github.com/nodesource/distributions
 #ARG NODE_VERSION=${NODE_VERSION:-current}
-# Ubuntu 18.04 missing GLC lib 2.28 needed by latest Node v18
-# Hence stick to v17
-ARG NODE_VERSION=${NODE_VERSION:-19}
+# Ubuntu 22.04
+ARG NODE_VERSION=${NODE_VERSION:-20}
 ENV NODE_VERSION=${NODE_VERSION}
-RUN apt-get update -y && \
-    curl -sL -k https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g npm@latest
+RUN apt-get update && \
+    apt-get install -y curl gnupg && \
+    mkdir -p /etc/apt/keyrings && \
+    curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_VERSION.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list && \
+    apt-get update -y && \
+    apt-get install -y nodejs
 
 ########################
 #### ---- Yarn ---- ####
@@ -179,7 +181,7 @@ RUN apt-get update -y && apt-get upgrade -y
 ARG IDE=PhpStorm
 ARG IDE_SHORT=phpstorm
 ARG IDE_CODE=webide
-ARG IDE_VERSION=2023.1.2
+ARG IDE_VERSION=2023.2
 
 # persist build args for runtime
 # see https://www.saltycrane.com/blog/2021/04/buildtime-vs-runtime-environment-variables-nextjs-docker/#setting-dynamic-buildtime-environment-variables-that-are-available-at-runtime-also
@@ -189,13 +191,11 @@ ENV IDE_CODE=$IDE_CODE
 ENV IDE_VERSION=$IDE_VERSION
 
 ARG IDE_TAR=${IDE}-${IDE_VERSION}.tar.gz
-ARG CDN_LAYOUT_TOOL_VERSION=0.9.8
+ARG SHARED_INDEX_CLI_TOOL_VERSION=0.9.8
 
 # Runtime variables
-ENV INDEXES_CDN_URL=http://localhost:3000/project
-ENV COMMIT_ID=''
-ENV PROJECT_ID=''
 ENV IDEA_PROJECT_DIR="/var/project"
+ENV PROJECT_NAME=''
 ENV SHARED_INDEX_BASE="/shared-index"
 
 USER root
@@ -226,11 +226,11 @@ RUN if [ "${TARGETARCH}" = "arm64" ]; then IDE_TAR="${IDE}-${IDE_VERSION}-aarch6
     chmod -R 777 ${SHARED_INDEX_BASE} && \
     chmod -R 777 /etc/idea
 
-# Install cdn-layout-tool
-RUN wget https://packages.jetbrains.team/maven/p/ij/intellij-shared-indexes-public/com/jetbrains/intellij/indexing/shared/cdn-layout-tool/${CDN_LAYOUT_TOOL_VERSION}/cdn-layout-tool-${CDN_LAYOUT_TOOL_VERSION}.zip -O cdn-layout-tool.zip && \
-    unzip cdn-layout-tool.zip && \
-    rm cdn-layout-tool.zip && \
-    mv cdn-layout-tool-${CDN_LAYOUT_TOOL_VERSION} cdn-layout-tool
+# Install ij-shared-indexes-tool-cli
+RUN wget https://packages.jetbrains.team/maven/p/ij/intellij-shared-indexes/com/jetbrains/intellij/indexing/shared/ij-shared-indexes-tool-cli/0.9.8/ij-shared-indexes-tool-cli-0.9.8.zip -O ij-shared-indexes-tool-cli.zip && \
+    unzip ij-shared-indexes-tool-cli.zip && \
+    rm ij-shared-indexes-tool-cli.zip && \
+    mv ij-shared-indexes-tool-cli-${SHARED_INDEX_CLI_TOOL_VERSION} ij-shared-indexes-tool-cli
 
 
 COPY entrypoint.sh entrypoint.sh
