@@ -15,7 +15,8 @@ Shared indexes are often hosted on a CDN and used by IDEs to speed up loading (i
     -v "$(pwd)":/var/project/%yourprojectname% \
     -v "$HOME/indexes-out":/shared-index \
     -e PROJECT_NAME=%yourprojectname% \
-    -e INDEXES_CDN_URL=http://localhost:3000
+    -e INDEXES_CDN_URL=http://localhost:3000 \
+    rollupdev/indexer:phpstorm
     ```
 
 1.  Upload indexes to CDN (or test locally)
